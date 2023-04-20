@@ -4,6 +4,7 @@ using Groep5_Van_Der_Lelie_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Groep5VanDerLelieApi.Migrations
 {
     [DbContext(typeof(DbContextService))]
-    partial class DbContextServiceModelSnapshot : ModelSnapshot
+    [Migration("20230419144051_updatedModelswithoutEnum")]
+    partial class updatedModelswithoutEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +94,6 @@ namespace Groep5VanDerLelieApi.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("createdAt");
 
-                    b.Property<int>("DepartmentNumber")
-                        .HasColumnType("int")
-                        .HasColumnName("departmentNumber");
-
                     b.Property<int?>("MaxEmployees")
                         .HasColumnType("int")
                         .HasColumnName("maxEmployees");
@@ -104,13 +103,17 @@ namespace Groep5VanDerLelieApi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("int")
+                        .HasColumnName("departmentNumber");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("updatedAt");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentNumber")
+                    b.HasIndex("Number")
                         .IsUnique();
 
                     b.ToTable("Departments");
@@ -232,6 +235,10 @@ namespace Groep5VanDerLelieApi.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int")
+                        .HasColumnName("departmentId");
+
                     b.Property<string>("FabricName")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("fabricName");
@@ -240,8 +247,8 @@ namespace Groep5VanDerLelieApi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("orderNumber");
 
-                    b.Property<string>("Priority")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int?>("Priority")
+                        .HasColumnType("int")
                         .HasColumnName("priority");
 
                     b.Property<string>("Product")
@@ -283,6 +290,8 @@ namespace Groep5VanDerLelieApi.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("ShiftId");
 
@@ -350,9 +359,17 @@ namespace Groep5VanDerLelieApi.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("Groep5_Van_Der_Lelie_Api.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Groep5_Van_Der_Lelie_Api.Models.Shift", "Shift")
                         .WithMany()
                         .HasForeignKey("ShiftId");
+
+                    b.Navigation("Department");
 
                     b.Navigation("Shift");
                 });

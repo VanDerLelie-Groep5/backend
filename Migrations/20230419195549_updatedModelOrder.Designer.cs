@@ -4,6 +4,7 @@ using Groep5_Van_Der_Lelie_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Groep5VanDerLelieApi.Migrations
 {
     [DbContext(typeof(DbContextService))]
-    partial class DbContextServiceModelSnapshot : ModelSnapshot
+    [Migration("20230419195549_updatedModelOrder")]
+    partial class updatedModelOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +94,6 @@ namespace Groep5VanDerLelieApi.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("createdAt");
 
-                    b.Property<int>("DepartmentNumber")
-                        .HasColumnType("int")
-                        .HasColumnName("departmentNumber");
-
                     b.Property<int?>("MaxEmployees")
                         .HasColumnType("int")
                         .HasColumnName("maxEmployees");
@@ -104,13 +103,17 @@ namespace Groep5VanDerLelieApi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("int")
+                        .HasColumnName("departmentNumber");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("updatedAt");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentNumber")
+                    b.HasIndex("Number")
                         .IsUnique();
 
                     b.ToTable("Departments");
@@ -240,8 +243,8 @@ namespace Groep5VanDerLelieApi.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("orderNumber");
 
-                    b.Property<string>("Priority")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int?>("Priority")
+                        .HasColumnType("int")
                         .HasColumnName("priority");
 
                     b.Property<string>("Product")

@@ -14,8 +14,6 @@ namespace Groep5_Van_Der_Lelie_Api.Data
         public DbSet<Shift> Shifts => Set<Shift>();
         public DbSet<Customer> Customers => Set<Customer>();
         public DbSet<Order> Orders => Set<Order>();
-        public DbSet<OrderLine> OrderLines => Set<OrderLine>();
-        public DbSet<Unit> Units => Set<Unit>();
 
         public override int SaveChanges()
         {

@@ -4,6 +4,7 @@ using Groep5_Van_Der_Lelie_Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Groep5VanDerLelieApi.Migrations
 {
     [DbContext(typeof(DbContextService))]
-    partial class DbContextServiceModelSnapshot : ModelSnapshot
+    [Migration("20230419231748_updatedDepartmentNumber")]
+    partial class updatedDepartmentNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
