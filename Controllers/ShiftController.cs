@@ -17,9 +17,13 @@ namespace Groep5_Van_Der_Lelie_Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Shift>> Get(int id)
+        public async Task<ActionResult<List<Shift>>> Get(int id)
+
+            
         {
-            var shift = await _context.Shifts.FindAsync(id);
+            var shift = await _context.Shifts
+                .Where(o => o.Id == id)
+                .ToListAsync();
 
             if (shift == null)
             {
